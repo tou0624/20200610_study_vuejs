@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>study vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        {{msg}}
+    </div>
+    <!-- vueのscriptブロックは、適用したい場所より下に書かないと適用されない(head内に書くのはng) -->
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                msg : 'こんにちは！'
+            }
+        })
+    </script>
+
+</body>
+</html>
