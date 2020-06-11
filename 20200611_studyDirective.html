@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's directive</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <!-- この書き方だとVueオブジェクト内の変数が反映されない -->
+            <a href="{{url}}">yahoo</a>
+        </p>
+        <p>
+            <a v-bind:href="url">yahoo(vueの書き方)</a>
+        </p>
+        <p>
+            <!-- v-bindディテクティブは省略可能 -->
+            <a :href="url">yahoo(v-bindディテクティブ省略)</a>
+        </p>
+        <p>
+            <!-- v-bindディテクティブに指定する引数を変数指定可能 -->
+            <a :[attribute]="url">yahoo(v-bindディテクティブ引数を変数化)</a>
+        </p>
+        <p>
+            <!-- dataで定義したobjを展開可能。key-valueで展開される -->
+            <a v-bind=instaObj>insta</a>
+        </p>
+
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                url : 'https://www.yahoo.co.jp/',
+                attribute : 'href',
+                instaObj : {
+                    href : 'https://www.instagram.com/',
+                    id : 3,
+                    obake : 'kowai'
+                }
+            },
+            methods : {
+
+            },
+        })
+    </script>
+</body>
+</html>

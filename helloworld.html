@@ -11,6 +11,8 @@
         <p>{{msg}}</p>
         <p v-text="msg"></p>
         <!-- 上記、どちらもアウトプットは同じ。v-はVue.js用のディレクティブ(属性) -->
+        <!-- v-onceをつけることで、定数みたいになる -->
+        <p v-once>{{msg}}</p>
         <p>{{number}}</p>
         <p>{{number + 3}}</p>
         <p>{{boolTest}}</p>
@@ -19,6 +21,9 @@
         <p>{{methodTest()}}</p>
         <button v-on:click="reverseMessage">
             メッセージ反転
+        </button>
+        <button v-on:click="changeMsg">
+            msgを変更
         </button>
     </div>
     <!-- vueのscriptブロックは、適用したい場所より下に書かないと適用されない(head内に書くのはng) -->
@@ -39,6 +44,10 @@
                 return this.msg2
                 // ;が末尾になくても動く
                 // Vueオブジェクト内部でのdata参照時はthis必須
+            },
+            // v-once試行用メソッド
+            changeMsg:function(){
+                this.msg = 'change'
             }
         }
         })
