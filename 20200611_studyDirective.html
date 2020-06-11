@@ -38,6 +38,10 @@
         <p>{{number}}</p>
         <button v-on:click=increments>数字を足していく</button>
     </div>
+    <div id="v-model-app">
+        <p><input type="text" v-model=msg />←入れた文字が下に出る</p>
+        <p>{{msg}}</p>
+    </div>
 
     <script>
         new Vue({
@@ -68,6 +72,12 @@
                     return this.number += 1
                 }
 
+            }
+        }),
+        new Vue({
+            el : '#v-model-app',
+            data : {
+                msg : 'hello'
             }
         })
 
