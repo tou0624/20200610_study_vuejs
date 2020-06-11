@@ -3,20 +3,28 @@
 <head>
     <meta charset="utf-8">
     <title>study vue.js</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="vue_20200611.js"></script>
 </head>
 
 <body>
     <div id='app'>
         {{msg}}
+        <button v-on:click="reverseMessage">
+            メッセージ反転
+        </button>
     </div>
     <!-- vueのscriptブロックは、適用したい場所より下に書かないと適用されない(head内に書くのはng) -->
     <script>
         new Vue({
-            el : '#app',
-            data : {
-                msg : 'こんにちは！'
+            el :'#app',
+        data : {
+            msg : 'hello world2!'
+        },
+        methods : {
+            reverseMessage:function() {
+                this.msg = this.msg.split('').reverse().join('')
             }
+        }
         })
     </script>
 
