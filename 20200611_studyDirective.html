@@ -7,10 +7,10 @@
     <script src="vue_20200611.js"></script>
 </head>
 <body>
-    <div id="app">
+    <div id="v-bind-app">
         <p>
             <!-- この書き方だとVueオブジェクト内の変数が反映されない -->
-            <a href="{{url}}">yahoo</a>
+            <!--<a href="{{url}}">yahoo</a>-->
         </p>
         <p>
             <a v-bind:href="url">yahoo(vueの書き方)</a>
@@ -27,12 +27,21 @@
             <!-- dataで定義したobjを展開可能。key-valueで展開される -->
             <a v-bind=instaObj>insta</a>
         </p>
-
+    </div>
+    <div id="v-html-app">
+        <!-- デフォルトの片数値出力時はサニタイズされる -->
+        {{titlemsg}}
+        <!-- サニタイズをなくす場合はディレクティブ指定可能。xss注意 -->
+        <div v-html="titlemsg"></div>
+    </div>
+    <div id="v-on-app">
+        <p>{{number}}</p>
+        <button v-on:click=increments>数字を足していく</button>
     </div>
 
     <script>
         new Vue({
-            el : '#app',
+            el : '#v-bind-app',
             data : {
                 url : 'https://www.yahoo.co.jp/',
                 attribute : 'href',
@@ -41,11 +50,27 @@
                     id : 3,
                     obake : 'kowai'
                 }
-            },
+            }
+        }),
+        new Vue({
+            el : '#v-html-app',
+            data : {
+                titlemsg : '<h1>test</h1>'
+            }
+        }),
+        new Vue({
+            el : '#v-on-app',
+            data : {
+                number : 0
+            }, 
             methods : {
+                increments:function() {
+                    return this.number += 1
+                }
 
-            },
+            }
         })
+
     </script>
 </body>
 </html>
