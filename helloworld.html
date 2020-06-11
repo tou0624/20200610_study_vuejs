@@ -8,7 +8,15 @@
 
 <body>
     <div id='app'>
-        {{msg}}
+        <p>{{msg}}</p>
+        <p v-text="msg"></p>
+        <!-- 上記、どちらもアウトプットは同じ。v-はVue.js用のディレクティブ(属性) -->
+        <p>{{number}}</p>
+        <p>{{number + 3}}</p>
+        <p>{{boolTest}}</p>
+        <p>{{boolTest ? 'yes' : 'no'}}</p>
+        <!-- メソッドを呼び出す時は()をつける -->
+        <p>{{methodTest()}}</p>
         <button v-on:click="reverseMessage">
             メッセージ反転
         </button>
@@ -18,11 +26,19 @@
         new Vue({
             el :'#app',
         data : {
-            msg : 'hello world2!'
+            msg : 'hello world2!',
+            number : 3,
+            boolTest : true,
+            msg2 : 'hello'
         },
         methods : {
             reverseMessage:function() {
                 this.msg = this.msg.split('').reverse().join('')
+            },
+            methodTest:function() {
+                return this.msg2
+                // ;が末尾になくても動く
+                // Vueオブジェクト内部でのdata参照時はthis必須
             }
         }
         })
