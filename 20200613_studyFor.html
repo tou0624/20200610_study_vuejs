@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's for</title>
+    <script src="vue_20200611.js"></script>
+    <style type="text/css">
+        h1 {
+            color: tomato;
+            background-color : cornsilk;
+            font-size: 20px;
+        }
+        h2 {
+            color : darkblue;
+            font-size: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>配列</h1>
+        <h2>indexなし</h2>
+        <ul>
+            <li v-for="value in sampleArray">{{value}}</li>
+        </ul>
+        <h2>indexあり</h2>
+        <ul>
+            <li v-for="(value, i) in sampleArray">{{i}}. {{value}}</li>
+        </ul>
+        <p>
+            数字指定してループ:
+            <select>
+                <option v-for="i in 40">{{i}}歳</option> 
+            </select>    
+        </p>
+        <h1>連想配列</h1>
+        <ul>
+            <li v-for="value in sampleObject">{{value}}</li>
+        </ul>
+        <h2>key, value, ついでにindex</h2>
+        <ul>
+            <li v-for="(value, key, index) in sampleObject">{{index}}.{{key}}:{{value}}</li>
+        </ul>
+        <h1>inはofでも動く</h1>
+        <p>
+            <select>
+                <template v-for="j of 40">
+                    <option :value="j">{{j}}歳</option>
+                </template>
+
+            </select>
+        </p>
+        <h1>key属性をつけようね</h1>
+        <p>template属性にはkeyをつけることができないので注意。</p>
+        <h2>keyディレクティブなし</h2>
+        <div v-for="v in sampleArray">
+            <p>{{v}}</p>
+            <input type="text" />
+        </div>
+        <h2>keyディレクティブあり</h2>
+        <div v-for="v in sampleArray" v-bind:key="v">
+            <p>{{v}}</p>
+            <input type="text" />
+        </div>
+        <p>※テキストフィールドに一意の値を入れて削除することで、key有無のメリットを理解できる</p>
+        <button v-on:click="del">削除</button>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                sampleArray : ['粉雪', 1 , false],
+                sampleObject : {
+                    '粉雪' : 'レミオロメン',
+                    1 : 'SMAP',
+                    true : 'false??'
+                },
+                num : 1
+            },
+            methods : {
+                del : function() {
+                    this.sampleArray.shift()
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
