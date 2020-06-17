@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's if</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>v-ifディレクティブ </h1>
+        <p>通常のif文のように、if/elseif/elseがある。隣接した記載が必要。初期描画は早いけど、各分岐の切り替えがあるとコストかかる</p>
+        <!-- templateタグ:html上、意味のないタグ。
+            ここにvueディレクティブ を持たせて操作するとわかりやすい -->
+        <template v-if="theflg">
+            <p>the</p>
+        </template>
+        <template v-else-if="anotherflg">
+            <p>another</p>
+        </template>
+        <template v-else>
+            <p>Nobody remembers me...</p>
+        </template>
+        <div>
+            <p>theflg:{{theflg}}</p>
+            <button v-on:click="theflg = !theflg">theflg反転</button>
+        </div>
+        <div>
+            <p>anotherflg:{{anotherflg}}</p>
+            <button v-on:click="anotherflg = !anotherflg">anotherflg反転</button>
+        </div>
+    </div>
+    <div id="show-app">
+        <h1>v-showディレクティブ </h1>
+        <p>if/elseとか無いのが痛い。あとは初期描画時に若干コストかかる。その代わり、表示/非表示の切り替えコストはそこまでかからない</p>
+        <p v-show="theflg">theflg@show</p>
+        <p v-show="!theflg">theflg@show(逆)</p>
+        <div>
+            <p>theflg:{{theflg}}</p>
+            <button @click="theflg = !theflg">theflg@show反転</button>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                theflg : true,
+                anotherflg : false
+            }
+        }),
+        new Vue({
+            el : '#show-app',
+            data : {
+                theflg : false
+            }
+        })
+    </script>
+    
+</body>
+</html>

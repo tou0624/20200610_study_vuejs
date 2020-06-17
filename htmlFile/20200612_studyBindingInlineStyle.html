@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's binding inline</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>もともと</h1>
+        <h2 style="color: green; background-color: salmon">hello</h2>
+        <h1>変更その1:配列</h1>
+        <!-- vueで定義した色を当て込む -->
+        <h2 v-bind:style="{color: textColor, 'background-color': bgColor}">hello</h2>
+        <h1>変更その2:オブジェクト</h1>
+        <!-- オブジェクトそのものを配列で持たせることができる -->
+        <!-- 共通要素と個別要素でオブジェクトを分けたい時なんかに使える -->
+        <h2 v-bind:style="[styleObj, commonStyleObj]">hello</h2>
+        <h2 v-bind:style="[styleChangeObj, commonStyleObj]">hello(change color)</h2>
+        <button v-on:click="change">色変更</button>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                textColor : 'green',
+                bgColor : 'salmon',
+                styleObj : {
+                    color : 'green',
+                    'background-color' : 'salmon'
+                },
+                commonStyleObj : {
+                    'font-size' : '60px'
+                },
+                textColor2 : 'green',
+                bgColor2 : 'salmon',
+                changeflg : true
+            },
+            computed : {
+                styleChangeObj : function() {
+                    return  {
+                        color : this.textColor2,
+                        'background-color' : this.bgColor2
+                    }
+                }
+            },
+            methods : {
+                change : function() {
+                    if (this.changeflg) {
+                        this.textColor2 = 'skyblue'
+                        this.bgColor2 = 'red'
+                        this.changeflg = false
+                    } else {
+                        this.textColor2 = 'green'
+                        this.bgColor2 = 'salmon'
+                        this.changeflg = true
+                    }
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

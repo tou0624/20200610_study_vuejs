@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div class="testClass"></div>
+    <div class="testClass"></div>
+    <div class="testClass"></div>
+    <p>↑複数同じ要素を表示する時、class属性のタグを増殖させても期待通りに動かない</p>
+
+    <div id="app">
+        <fruit></fruit>
+        <fruit></fruit>
+        <fruit></fruit>
+        <p>↑componentを利用すれば動く。</p>
+
+        <test-component></test-component>
+        <test-component></test-component>
+        <p>↑コンポーネントのローカル登録</p>
+    </div>
+    <script>
+        var testComponent = {
+            data : function() {
+                return  {
+                    momo : 'peach'
+                }
+            },
+            template : '<p>{{momo}}</p>'
+
+        }
+
+        Vue.component('fruit', {
+            // メモリ共有を防ぐため、各オブジェクトごとに変数の値を保持するべく関数。
+            data : function () {
+                return {
+                    number : 12
+                }
+            },
+            template : '<p>{{number}}</p>'
+        })
+
+        new Vue({
+            el : '#app',
+            components : {
+                'test-component': testComponent
+            }
+        })
+
+        new Vue({
+            el : '.testClass',
+            data : {
+                number :555
+            }, 
+            template : '<p>{{number}}</p>'
+        })
+    </script>
+</body>
+</html>

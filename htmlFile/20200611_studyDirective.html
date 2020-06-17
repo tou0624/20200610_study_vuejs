@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's directive</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div id="v-bind-app">
+        <p>
+            <!-- この書き方だとVueオブジェクト内の変数が反映されない -->
+            <!--<a href="{{url}}">yahoo</a>-->
+        </p>
+        <p>
+            <a v-bind:href="url">yahoo(vueの書き方)</a>
+        </p>
+        <p>
+            <!-- v-bindディテクティブは省略可能 -->
+            <a :href="url">yahoo(v-bindディテクティブ省略)</a>
+        </p>
+        <p>
+            <!-- v-bindディテクティブに指定する引数を変数指定可能 -->
+            <a :[attribute]="url">yahoo(v-bindディテクティブ引数を変数化)</a>
+        </p>
+        <p>
+            <!-- dataで定義したobjを展開可能。key-valueで展開される -->
+            <a v-bind=instaObj>insta</a>
+        </p>
+    </div>
+    <div id="v-html-app">
+        <!-- デフォルトの片数値出力時はサニタイズされる -->
+        {{titlemsg}}
+        <!-- サニタイズをなくす場合はディレクティブ指定可能。xss注意 -->
+        <div v-html="titlemsg"></div>
+    </div>
+    <div id="v-on-app">
+        <p>{{number}}</p>
+        <button v-on:click=increments>数字を足していく</button>
+    </div>
+    <div id="v-model-app">
+        <p><input type="text" v-model=msg />←入れた文字が下に出る</p>
+        <p>{{msg}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#v-bind-app',
+            data : {
+                url : 'https://www.yahoo.co.jp/',
+                attribute : 'href',
+                instaObj : {
+                    href : 'https://www.instagram.com/',
+                    id : 3,
+                    obake : 'kowai'
+                }
+            }
+        }),
+        new Vue({
+            el : '#v-html-app',
+            data : {
+                titlemsg : '<h1>test</h1>'
+            }
+        }),
+        new Vue({
+            el : '#v-on-app',
+            data : {
+                number : 0
+            }, 
+            methods : {
+                increments:function() {
+                    return this.number += 1
+                }
+
+            }
+        }),
+        new Vue({
+            el : '#v-model-app',
+            data : {
+                msg : 'hello'
+            }
+        })
+
+    </script>
+</body>
+</html>

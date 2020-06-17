@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study vue's instance</title>
+    <script src="vue_20200611.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p>{{num}}</p>
+        <p>{{viewData}}</p>
+    </div>
+
+    <div id="app2"></div>
+    <div id="app3"></div>
+
+    <script>
+        var data = {
+            msg : 'hello',
+            num : 1
+        }
+
+        var vm = new Vue({
+            // dataとしてjsオブジェクト指定可能
+            data : data,
+            computed : {
+                viewData : function() {
+                    return this.$data;
+                }
+            }
+        })
+
+        // elプロパティを利用せず、後でマウント可能
+        // 基本的にはelプロパティを使う
+        vm.$mount('#app');
+
+        new Vue({
+            el : '#app2',
+            data : data,
+            // ここに複数タグを含めようとするとエラーとなり利用できない
+            template : '<p>{{msg}}</p>'
+        })
+
+        new Vue({
+            el : '#app3',
+            data : data,
+            // hと書いたけど、createElementオブジェクト
+            // jsのcreateElementメソッドとはまったく別物。VNode(仮装ノード)≠DOM=オブジェクト
+            render : function(h) {
+                console.log(h('p', this.msg));
+                return h('p', this.msg);
+            }
+        })
+
+        // jsのcreateElement
+        var dir = document.createElement('div');
+        // logにするとhtmlっぽい形でしか出ない
+        console.log(dir);
+        // jsの中身を見るならdirを利用する
+        console.dir(dir);
+
+    </script>
+    
+</body>
+</html>

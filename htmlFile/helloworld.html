@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>study vue.js</title>
+    <script src="vue_20200611.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>{{msg}}</p>
+        <p v-text="msg"></p>
+        <!-- 上記、どちらもアウトプットは同じ。v-はVue.js用のディレクティブ(属性) -->
+        <!-- v-onceをつけることで、定数みたいになる -->
+        <p v-once>{{msg}}</p>
+        <p>{{number}}</p>
+        <p>{{number + 3}}</p>
+        <p>{{boolTest}}</p>
+        <p>{{boolTest ? 'yes' : 'no'}}</p>
+        <!-- メソッドを呼び出す時は()をつける -->
+        <p>{{methodTest()}}</p>
+        <button v-on:click="reverseMessage">
+            メッセージ反転
+        </button>
+        <button v-on:click="changeMsg">
+            msgを変更
+        </button>
+    </div>
+    <!-- vueのscriptブロックは、適用したい場所より下に書かないと適用されない(head内に書くのはng) -->
+    <script>
+        new Vue({
+            el :'#app',
+        data : {
+            msg : 'hello world2!',
+            number : 3,
+            boolTest : true,
+            msg2 : 'hello'
+        },
+        methods : {
+            reverseMessage:function() {
+                this.msg = this.msg.split('').reverse().join('')
+            },
+            methodTest:function() {
+                return this.msg2
+                // ;が末尾になくても動く
+                // Vueオブジェクト内部でのdata参照時はthis必須
+            },
+            // v-once試行用メソッド
+            changeMsg:function(){
+                this.msg = 'change'
+            }
+        }
+        })
+    </script>
+
+</body>
+</html>
